@@ -1,7 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
 import java.lang.IllegalStateException
-import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,8 +32,9 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     val diff = date.time - this.time
     fun text(format: Long, s: String, s1: String, s2: String) : String {
         return when {
-            (diff/format) % 10 == 1L -> s
-            (diff/format in 2..4)||(((diff/format) % 10 in 2..4)&&(diff>20))-> s1
+            ((diff/format) % 10 == 1L)||(-diff/format) % 10 == 1L -> s
+            ((diff/format in 2..4)||(((diff/format) % 10 in 2..4)&&(diff>20)))||
+                    ((-diff/format in 2..4)||(((-diff/format) % 10 in 2..4)&&(-diff>20))) -> s1
             else -> s2
         }
     }
@@ -44,7 +44,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in 0..1 * SECOND -> "сейчас"
             in 1 * SECOND..45 * SECOND -> "через несколько секунд"
             in 45 * SECOND..75 * SECOND -> "через минуту"
-            in 75 * SECOND..45 * MINUTE -> "через ${-diff/MINUTE} ${text(MINUTE, "минуту", "минуты", "минут")}"
+            in 75 * SECOND..45 * MINUTE -> "через ${-diff / MINUTE} ${text(MINUTE, "минуту", "минуты", "минут")}"
             in 45 * MINUTE..75 * MINUTE -> "через час"
             in 75 * MINUTE..22 * HOUR -> "через ${-diff/HOUR} ${text(HOUR, "час", "часа", "часов")}"
             in 22 * HOUR..26 * HOUR -> "через день"
@@ -73,10 +73,11 @@ enum class TimeUnits(val s: String, val s1: String, val s2: String) {
     DAY("день", "дня", "дней");
 
     fun plural(value: Int) : String {
-        return when{
-            value%10==1 -> s
-            (value in 2..4)||((value % 10 in 2..4)&&(value>20)) -> s1
+        return when {
+            value % 10 == 1 -> s
+            value in 2..4||((value % 10 in 2..4)&&(value>20)) -> s1
             else -> s2
         }
     }
 }
+//updated
