@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.extensions
 
 import java.lang.IllegalStateException
+import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,8 +75,9 @@ enum class TimeUnits(val s: String, val s1: String, val s2: String) {
 
     fun plural(value: Int) : String {
         return when {
-            value % 10 == 1 -> s
-            value in 2..4||((value % 10 in 2..4)&&(value>20)) -> s1
+            kotlin.math.abs(value) % 10 == 1 -> s
+            kotlin.math.abs(value) in 2..4||((kotlin.math.abs(value) % 10 in 2..4)
+                    &&(kotlin.math.abs(value) >20)) -> s1
             else -> s2
         }
     }
