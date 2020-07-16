@@ -72,7 +72,7 @@ enum class TimeUnits(val s: String, val s1: String, val s2: String) {
     HOUR("час", "часа", "часов"),
     DAY("день", "дня", "дней");
 
-    fun plural(value: Int, s: String, s1: String, s2: String) : String {
+    fun plural(value: Int) : String {
         return when {
             value % 10 == 1 -> s
             value in 2..4||((value % 10 in 2..4)&&(value>20)) -> s1
