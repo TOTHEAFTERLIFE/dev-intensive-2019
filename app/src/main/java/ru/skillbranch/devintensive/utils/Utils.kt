@@ -91,8 +91,9 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val initialFirstName = firstName?.first()?.toUpperCase() ?: ""
-        val initialLastName = lastName?.first()?.toUpperCase() ?: ""
+        val initialFirstName = firstName?.trim()?.first()?.toUpperCase() ?: ""
+        val initialLastName = lastName?.trim()?.first()?.toUpperCase() ?: ""
         return initialFirstName.toString()+initialLastName.toString()
     }
 }
+//updated
