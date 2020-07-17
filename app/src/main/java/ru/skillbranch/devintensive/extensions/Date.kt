@@ -72,12 +72,10 @@ enum class TimeUnits(val s: String, val s1: String, val s2: String) {
     MINUTE("минуту", "минуты", "минут"),
     HOUR("час", "часа", "часов"),
     DAY("день", "дня", "дней");
-
-    fun plural(value: Int) : String {
+    fun plural(value: Int): String {
         return when {
-            kotlin.math.abs(value) % 10 == 1 -> s
-            kotlin.math.abs(value) in 2..4||((kotlin.math.abs(value) % 10 in 2..4)
-                    &&(kotlin.math.abs(value) >20)) -> s1
+            value % 10 == 1 -> s
+            value in 2..4 || ((value % 10 in 2..4) && (value > 20)) -> s1
             else -> s2
         }
     }
